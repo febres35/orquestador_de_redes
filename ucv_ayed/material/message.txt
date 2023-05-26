@@ -1,0 +1,181 @@
+```
+# doblmenente enlazada
+
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int info;
+    Node *next;
+    Node *prev;
+};
+
+class List{
+    private:
+        Node *init;
+        Node *last;
+        Node *current;
+        int size;
+
+    public:
+        List(){
+            init = NULL;
+            last = NULL;
+            current = init;
+        }
+
+    void insert(int i, bool lado = true){
+        Node *temp = new Node();
+        temp->info = i;
+        temp->next = NULL;
+        temp->prev = NULL;
+        if(current == NULL){
+            current = temp;
+            init = temp;
+            last = temp;
+        }else if(lado && current->next == NULL){
+            current->next = temp;
+            temp->prev = current;
+            last = temp;
+        }else if(!lado && current->prev == NULL){
+            current->prev = temp;
+            temp->next = current;
+            init = temp;
+        }else if(lado && current->next != NULL){
+            temp->next = current->next;
+            current->next = temp;
+            temp->next->prev = temp;
+            temp->prev = current;
+        }
+        size++;
+        current = temp;
+    }
+
+    int getSize(){
+        return size;
+    }
+
+    void reset(){
+        current = init;
+    }
+
+    void finnish(){
+        current = last;
+    }
+
+    bool end() {
+        return current == last;
+    }
+
+    bool begin() {
+        return current == init;
+    }
+
+    void next() {
+        if(current == NULL) return;
+        current = current->next;
+    }
+
+    void previous() {
+        if(current == NULL) return;
+        current = current->prev;
+    }
+
+    void print(){
+        reset();
+        while(!end()){
+            cout << current->info << " ";
+            next();
+        }
+        cout << endl;
+    }
+
+    void printreverse(){
+        finnish();
+        while(!begin()){
+            cout << current->info << " ";
+            previous();
+        }
+        cout << endl;
+    }
+    void remove(){
+        if(empty()) return;
+        Node *temp = current;
+        previous();
+        Node *anterior = current;
+        next();
+        next();
+        Node *proximo = current;
+        proximo->prev = anterior;
+        anterior->next = proximo;
+        size--;
+        delete temp;
+    }
+
+    int size_dinamic(){
+        int size = 0;
+        reset();
+        while(!end()){
+            size++;
+            next();
+        }
+        return size;
+    }
+
+    bool empty(){
+        return init == NULL;
+    }
+
+    Node *get(){
+        return current;
+    }
+
+    int info(){
+        if(current != NULL){
+            return current->info;
+        }
+        return 0;
+    }
+
+    void update(int v){
+        current->info = v;
+    }
+};
+
+int main(){
+    List l1;
+    l1.insert(1);
+    l1.insert(2);
+    l1.insert(3);
+    l1.insert(4);
+    l1.insert(5);
+    l1.insert(6);
+    l1.insert(7);
+    l1.print();
+    cout << l1.size_dinamic() << " " << l1.getSize() << endl;
+
+    l1.reset();
+    l1.next();
+    l1.next();
+    l1.next();
+    l1.remove();
+    l1.print();
+    cout << l1.size_dinamic() << " " << l1.getSize() << endl;
+
+    l1.reset();
+    l1.next();
+    l1.next();
+
+    cout << l1.get()->info << endl;
+    cout << l1.info() << endl;
+
+    l1.reset();
+    l1.next();
+    l1.next();
+    l1.update(30);
+
+    cout << l1.get()->info << endl;
+    cout << l1.info() << endl;
+    l1.print();
+}
+```

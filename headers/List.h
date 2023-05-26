@@ -3,6 +3,7 @@
 
 #include <iostream>
 using std::cout;
+using std::cin;
 
 #include <new>
 #include "../headers/Node.h"

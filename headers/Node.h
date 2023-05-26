@@ -29,7 +29,7 @@ template <class T>
 long Node<T>::_id=0;
 
 template <class T>
-Node<T>::Node(const T &info):this->info(info),next(0), _position(0){
+Node<T>::Node(const T &info):info(info),next(0), _position(0){
     /**
      * @brief constructor de la platilla node
      * 
