@@ -31,7 +31,7 @@ List<T>::~List(){
             cout << tempNode->info<< "\n";
             current = current->next;
             delete tempNode;
-            size--;
+            _size--;
         }
     }
     cout << "Se destruyeron todos los nodos\n";
