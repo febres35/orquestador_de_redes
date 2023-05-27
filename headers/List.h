@@ -25,7 +25,7 @@ class List {
         Node<T> *getTail();
         void setTail(const Node<T> *);
         Node<T> get(unsigned long);
-        void insert(unsigned long p=0, T );
+        void insert(unsigned long = 0, const T);
         void order(Node<T> *);
         void Delete(unsigned long, T &) const;
         void Delete();

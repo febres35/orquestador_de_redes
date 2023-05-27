@@ -122,7 +122,7 @@ Node<T> List<T>::*get( unsigned long p){
 }
 
 template <class T>
-void insert(unsigned long p, T info){
+void insert(unsigned long p, const T info){
     /**
      * @brief incluir en la lista, dada una posicion.
      * de no incluir la posicion en la lita se colocara al final 
@@ -145,8 +145,8 @@ void insert(unsigned long p, T info){
     }else if (p > tail->position){ // si p es mayor que la ultima poicion de la lista entonces se incluye al final
         tail->next = newNode;
         tail = newNode;
-        newNode->_position=size; // garantiza que si el parametro p es una posicion mayor a size+1 \
-                                se asigne el valor correspondiente al ultimo de la lista.
+        newNode->_position=size; /* garantiza que si el parametro p es una posicion mayor a size+1 
+                                se asigne el valor correspondiente al ultimo de la lista.*/
         size++;
     }else{
         Node<T> current = head->next; //se crea el nodo actual para iterar la lista 
@@ -226,7 +226,7 @@ void List<T>::Delete(unsigned long position, T &info) const {
             }else{ //cualquiera entre la lista.
                 current = forme->next;
                 forme->next = current->next;
-                info = current->info
+                info = current->info;
                 delete current;
             }
     }
@@ -284,7 +284,7 @@ void List<T>::print() const{
     while (current != 0)
     {
         wchar_t c = currnet->info;
-        cout <<current->position << " - " << current->_id<<" - "<< c << endl;
+        cout <<current->position << " - " << current->_id<<" - "<< c << "\n";
     }
     
 }
