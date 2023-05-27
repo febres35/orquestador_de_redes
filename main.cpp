@@ -20,6 +20,7 @@ void probarList(List<T> &list, const std::string &nombreType){
     instruccione();
     int option;
     T valor;
+    unsigned long _size;
 
     do{
         cout <<"? ";
@@ -35,7 +36,7 @@ void probarList(List<T> &list, const std::string &nombreType){
         case 2:
             cout << "Escriba "<< nombreType << ": ";
             cin >> valor;
-            list.insert(list.Size()+1, valor);
+            list.insert(list.Size(), valor);
             list.print();
             break;
         case 3:
@@ -45,8 +46,8 @@ void probarList(List<T> &list, const std::string &nombreType){
             list.print();
             break;
         case 4:
-            unsigned long size = list.Size();
-            list.Delete(size, valor)
+            _size = list.Size();
+            list.Delete(_size, valor);
             if (valor){
                 cout <<  valor << " se quito de la lista\n";
             }
@@ -54,6 +55,7 @@ void probarList(List<T> &list, const std::string &nombreType){
             break;  
 
         default:
+            cout << "Opcion no valida.\n";
             break;
         }
     }while(option != 5);
@@ -61,7 +63,7 @@ void probarList(List<T> &list, const std::string &nombreType){
     cout << "fin de la prueba de lista.\n\n";
 }
 
-void intruccion(){
+void instruccione(){
     cout << "Escriba una de las siguiente opciones: \n";
     cout << "1. Insertar al inicio de la lista \n";
     cout << "2. Insertar al final de la lista \n";

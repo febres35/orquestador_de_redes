@@ -1,7 +1,9 @@
 #include "/home/earp/trabajo/orquestador_de_redes/headers/List.h"
 
+
+
 template <class T>
-unsigned long List<T>::_id = 0;
+long List<T>::_id = 0;
 
 template <class T>
 List<T>::List():head(0),tail(0){
@@ -49,7 +51,7 @@ bool List<T>::isEmpty() const{
 }
 
 template <class T>
-unsigned long List<T>::getId() const{
+long List<T>::getId() const{
     /** 
      * @brief return the id
      * @return  id
@@ -61,13 +63,13 @@ unsigned long List<T>::getId() const{
 }
 
 template <class T>
-Node<T>  List<T>::*getHead(){
+Node<T> * List<T>::getHead(){
     /**
      * @brief return first element of list
      * @author Leonardo Febres
      * @return head
     */
-    return head;
+    return this->head;
 }
 
 template <class T>
@@ -81,14 +83,14 @@ void List<T>::setHead(const Node<T> *head){
 }
 
 template <class T>
-Node<T> List<T>::*getTail(){
+Node<T> * List<T>::getTail(){
     /**
      * @brief retorna el ultimo de la lista
      * @return head
      * @author Leonardo Febres
     */
 
-   return tail;
+   return this->tail;
 }
 
 template <class T>
@@ -101,17 +103,20 @@ void List<T>::setTail(const Node<T> *tail){
    this->tail=tail;
 }
 
+
+
 template <class T>
-Node<T> List<T>::*get( unsigned long p){
-    /**
-     * @brief busca el nodo por la posicion en la lita
-     * @param position_node
-     * @return Node point
-     * @if 0: no se encontro 
-     * @author Leonardo Febres
-     * 
+Node<T> * List<T>::get(long p)
+{
+   /**
+    * @brief busca el nodo por la posicion en la lita
+    * @param position_node
+    * @return Node point
+    * @if 0: no se encontro
+    * @author Leonardo Febres
+    *
     */
-   Node<T> *current = head;
+   Node<T> *current = this->head;
    while(current!=0){
     if(current->_position == p){
         return current;
@@ -122,7 +127,7 @@ Node<T> List<T>::*get( unsigned long p){
 }
 
 template <class T>
-void insert(unsigned long p, const T info){
+void List<T>::insert(T info, long p){
     /**
      * @brief incluir en la lista, dada una posicion.
      * de no incluir la posicion en la lita se colocara al final 
@@ -133,21 +138,21 @@ void insert(unsigned long p, const T info){
      * @author Leonardo Febres
     */
 
-    Node<T> *newNode = new Node(info); //set info en nodo
-    size++; // incrementa el numero de elementos de la lista
+    Node<T> *newNode = new Node<T>(info); //set info en nodo
+    _size++; // incrementa el numero de elementos de la lista
     newNode->_position=p; // set _position
     if(p == head->position){ // si p es igual a la posicion del head entonces se coloca al principio
         newNode->next = head;
         newNode->_position = head->_position;
         head = newNode;
         order(newNode);
-        size++;
+        _size++;
     }else if (p > tail->position){ // si p es mayor que la ultima poicion de la lista entonces se incluye al final
         tail->next = newNode;
         tail = newNode;
-        newNode->_position=size; /* garantiza que si el parametro p es una posicion mayor a size+1 
+        newNode->_position=_size; /* garantiza que si el parametro p es una posicion mayor a size+1 
                                 se asigne el valor correspondiente al ultimo de la lista.*/
-        size++;
+        _size++;
     }else{
         Node<T> current = head->next; //se crea el nodo actual para iterar la lista 
         while(current->_position == p-1){
@@ -163,7 +168,7 @@ void insert(unsigned long p, const T info){
            
            
         }
-        size++;
+        _size++;
         order(newNode); // se ordena la lista.
     
     }
@@ -172,7 +177,7 @@ void insert(unsigned long p, const T info){
 
 
 template <class T>
-void order(Node<T> *current){
+void List<T>::order(Node<T> *current){
 
     /**
      * @brief Ordena una lista desde un nodo dado
@@ -185,7 +190,7 @@ void order(Node<T> *current){
     */
     if( current != 0){
         unsigned long index = current->_position; // index de posicion de los nodos 
-        Node<T> temp = current->next // iterado de nodos
+        Node<T> temp = current->next;// iterado de nodos
         while(temp->next != 0){ // mientras no haya llegado a final.
             index++; // incrementa el index ya que sera el nuevo valor del atributo _position
             temp->_position = index; // itera al siguiente nodo
@@ -194,7 +199,7 @@ void order(Node<T> *current){
 }
 
 template <class T>
-void List<T>::Delete(unsigned long position, T &info) const {
+void List<T>::Delete(long position, T &info) {
     /**
      * @brief elimina un nodo segun una posicion dada y salva la informacion\
      * en el parametro info.
@@ -210,7 +215,6 @@ void List<T>::Delete(unsigned long position, T &info) const {
     /** EN CASO DE QUE EL NUMERO P SEA MAYOR QUE EL TAÑO DE LA LISTA*/
     if(position > tail->_position){
         cout<< "Posicion fuera de alcance\n";
-        return 0;
     }
     if(position > 0){ // si es 1 get retorna 0, por ende es el primer node
         forme = get(position-1);
@@ -222,17 +226,22 @@ void List<T>::Delete(unsigned long position, T &info) const {
             if(forme == 0){ 
                 head = current->next;
                 info = current->info;
+                head->_position=1;
+                order(head);
                 delete current;
+
             }else{ //cualquiera entre la lista.
                 current = forme->next;
                 forme->next = current->next;
+                
                 info = current->info;
+                order(forme);
                 delete current;
             }
     }
-    
+    _size--;
    }
-   size--;
+   
     
 }
 
@@ -253,7 +262,7 @@ void List<T>::Delete(){
             cout << tempNode->info<< "\n";
             current = current->next;
             delete tempNode;
-            size--;
+            _size--;
         }
     }
     cout << "Se destruyeron todos los nodos\n";
@@ -262,13 +271,13 @@ void List<T>::Delete(){
 }
 
 template<class T>
-unsigned long List<T>::Size() const{
+long List<T>::Size() const{
     /**
      * @brief retorna el numero de elementos en la lista
      * @return unsigned long 
      * 
      * */
-    return size;
+    return _size;
 }
 
 template<class T>
@@ -279,11 +288,11 @@ void List<T>::print() const{
      * hacer la imprsion el wchar_t se usa como prueba.
      * @author Leonardo Febres
     */
-    Node<T> currnet = head;
+    Node<T> current = head;
 
     while (current != 0)
     {
-        wchar_t c = currnet->info;
+        wchar_t c = current->info;
         cout <<current->position << " - " << current->_id<<" - "<< c << "\n";
     }
     

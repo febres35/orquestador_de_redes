@@ -19,23 +19,24 @@ class List {
         List(T);
         ~List();
         bool isEmpty() const;
-        unsigned long getId() const;
-        T *getHead();
+        long getId() const;
+        Node<T> * getHead();
         void setHead(const Node<T> *);
         Node<T> *getTail();
         void setTail(const Node<T> *);
-        Node<T> get(unsigned long);
-        void insert(unsigned long = 0, const T);
+        Node<T> * get(long);
+        void insert(T, long = 0);
         void order(Node<T> *);
-        void Delete(unsigned long, T &) const;
+        void Delete( long, T &);
         void Delete();
-        unsigned long Size() const;
+        long Size() const;
         void print() const;       
 
     private:
-        unsigned long size;
-        static unsigned long _id;
-        Node<T> *head, *tail;
+        long _size;
+        static long _id;
+        Node<T> *head;
+        Node<T> *tail;
 };
 
 #endif
