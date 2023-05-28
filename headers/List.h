@@ -33,7 +33,7 @@ class List {
         void print() const;       
 
     private:
-        Node<T> *crear(const T &);
+        Node<T> *crear(const T &, long);
         long _size;
         static long _id;
         Node<T> *head;
@@ -48,11 +48,12 @@ long List<T>::_id = 0;
 
 template <class T>
 List<T>::List():head(0),tail(0){
-
+    _size = 0;
 }
 
 template <class T>
 List<T>::List(T info):head(info),tail(info) {
+    _size = 0;
 
 }
 
@@ -158,10 +159,14 @@ Node<T> * List<T>::get(long p)
     *
     */
    Node<T> *current = this->head;
+   if(p == 0){
+    return 0;
+   }
    while(current!=0){
-    if(current->_position == p){
+    if(current->getPosition() == p){
         return current;
     }
+    current=current->next;
    }
 
    return 0;
@@ -179,21 +184,18 @@ void List<T>::insert(T info, long p){
      * @author Leonardo Febres
     */
 
-    Node<T> *newNode = crear(info); //set info en nodo
+    
     _size++; // incrementa el numero de elementos de la lista
-    newNode->setPosition(_size); // set _position
+    Node<T> *newNode = crear(info, _size); //set info en nodo
     if (p == 0){ // en caso de que sea el parametro por default incluir al final.
         p = Size();
     }
     if(!isEmpty()){
         cout <<newNode->getPosition()<<"\n";
-        if(p == head->_position){ // si p es igual a la posicion del head entonces se coloca al principio
+        if(p == head->getPosition()){ // si p es igual a la posicion del head entonces se coloca al principio
             newNode->next = head;
-            cout <<"Bandera 1\n";
             newNode->setPosition(head->getPosition());
-            cout <<"Bandera 2\n";
             head = newNode;
-            cout <<"Bandera 3\n";
             order(newNode);
         }else if (p > tail->getPosition()){ // si p es mayor que la ultima poicion de la lista entonces se incluye al final
             tail->next = newNode;
@@ -232,7 +234,7 @@ void List<T>::order(Node<T> *current){
      * @brief Ordena una lista desde un nodo dado
      * siendo el siguiente nodo el que se va a modificar 
      * el indice de la posicion.
-     * modificanto el valor del atributo _position
+     * modificanto el valor del atributo p
      * del nodo next.
      * @param Node actual con la posicion correcta.
      * @author Leonardo Febres
@@ -263,8 +265,9 @@ void List<T>::Delete(long position, T &info) {
     Node<T> *forme = 0; // anterior
 
     /** EN CASO DE QUE EL NUMERO P SEA MAYOR QUE EL TAÑO DE LA LISTA*/
-    if(position > tail->getPosition()){
+    if(position > tail->getPosition() || position < 0){
         cout<< "Posicion fuera de alcance\n";
+        return;
     }
     if(position > 0){ // si es 1 get retorna 0, por ende es el primer node
         forme = get(position-1);
@@ -273,21 +276,21 @@ void List<T>::Delete(long position, T &info) {
                 current = forme->next;
             } */
             /* Es el primero y por eso el get retorno 0*/
-            if(forme == 0){ 
-                head = current->next;
-                info = current->info;
-                head->setPosition(1);
-                order(head);
-                delete current;
+        if(forme == 0){ 
+            head = current->next;
+            info = current->getInfo();
+            head->setPosition(1);
+            order(head);
+            delete current;
 
-            }else{ //cualquiera entre la lista.
-                current = forme->next;
-                forme->next = current->next;
-                
-                info = current->getInfo();
-                order(forme);
-                delete current;
-            }
+        }else{ //cualquiera entre la lista.
+            current = forme->next;
+            forme->next = current->next;
+            
+            info = current->getInfo();
+            order(forme);
+            delete current;
+        }
     }
     _size--;
    }
@@ -350,8 +353,8 @@ void List<T>::print() const{
 }
 
 template <class T>
-Node<T> *List<T>::crear(const T &datos){
-    return new Node<T>(datos);
+Node<T> *List<T>::crear(const T &datos,long x){
+    return new Node<T>(datos, x);
 }
 
 

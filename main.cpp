@@ -20,6 +20,7 @@ void probarList(List<T> &list, const std::string &nombreType){
     instruccione();
     int option;
     T valor;
+    T aux;
     long _size;
 
     do{
@@ -42,14 +43,14 @@ void probarList(List<T> &list, const std::string &nombreType){
             break;
 
         case 3:
-            list.Delete(1, valor);
+            list.Delete(1, aux);
             cout <<  valor << " se quito de la lista\n";
 
             list.print();
             break;
         case 4:
             _size = list.Size();
-            list.Delete(_size, valor);
+            list.Delete(_size, aux);
             if (valor){
                 cout <<  valor << " se quito de la lista\n";
             }
