@@ -75,7 +75,7 @@ Node<T> * List<T>::getHead(){
 template <class T>
 void List<T>::setHead(const Node<T> *head){
     /**
-     * @brief set first position
+     * @brief set first _position
      * @param Node point
      * @author Leonardo Febres
     */
@@ -141,13 +141,13 @@ void List<T>::insert(T info, long p){
     Node<T> *newNode = new Node<T>(info); //set info en nodo
     _size++; // incrementa el numero de elementos de la lista
     newNode->_position=p; // set _position
-    if(p == head->position){ // si p es igual a la posicion del head entonces se coloca al principio
+    if(p == head->_position){ // si p es igual a la posicion del head entonces se coloca al principio
         newNode->next = head;
         newNode->_position = head->_position;
         head = newNode;
         order(newNode);
         _size++;
-    }else if (p > tail->position){ // si p es mayor que la ultima poicion de la lista entonces se incluye al final
+    }else if (p > tail->_position){ // si p es mayor que la ultima poicion de la lista entonces se incluye al final
         tail->next = newNode;
         tail = newNode;
         newNode->_position=_size; /* garantiza que si el parametro p es una posicion mayor a size+1 
@@ -163,11 +163,13 @@ void List<T>::insert(T info, long p){
          * donde se colocara el nuevo nodo.
         */
             newNode = current->next; // asignamos en la posicion de la lista buscada
-            newNode->_position = current->next->_position; // se asigna el numero de la posicion
-            current->next = newNode; // se alinea el nuevo nodo en la lista
+          
+        newNode->_position = current->next->_position; // se asigna el numero de la posicion
+        current->next = newNode; // se alinea el nuevo nodo en la lista
            
            
         }
+
         _size++;
         order(newNode); // se ordena la lista.
     
@@ -293,7 +295,7 @@ void List<T>::print() const{
     while (current != 0)
     {
         wchar_t c = current->info;
-        cout <<current->position << " - " << current->_id<<" - "<< c << "\n";
+        cout <<current->_position << " - " << current->_id<<" - "<< c << "\n";
     }
     
 }

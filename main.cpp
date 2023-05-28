@@ -20,7 +20,7 @@ void probarList(List<T> &list, const std::string &nombreType){
     instruccione();
     int option;
     T valor;
-    unsigned long _size;
+    long _size;
 
     do{
         cout <<"? ";
@@ -30,15 +30,17 @@ void probarList(List<T> &list, const std::string &nombreType){
         case 1:
             cout << "Escriba "<< nombreType << ": ";
             cin >> valor;
-            list.insert(valor);
+            list.insert(valor, 1);
             list.print();
             break;
         case 2:
             cout << "Escriba "<< nombreType << ": ";
             cin >> valor;
-            list.insert(list.Size(), valor);
+            _size = list.Size()+1;
+            list.insert(valor, _size);
             list.print();
             break;
+
         case 3:
             list.Delete(1, valor);
             cout <<  valor << " se quito de la lista\n";
