@@ -1,7 +1,5 @@
 .vscode
 output
 headers/output
-.vscode/launch.json
-.vscode/settings.json
-
+src/output
 main

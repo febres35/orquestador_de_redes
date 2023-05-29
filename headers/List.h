@@ -158,10 +158,11 @@ Node<T> * List<T>::get(long p)
     * @author Leonardo Febres
     *
     */
-   Node<T> *current = this->head;
+ 
    if(p == 0){
     return 0;
    }
+    Node<T> *current = this->head;
    while(current!=0){
     if(current->getPosition() == p){
         return current;
@@ -279,8 +280,10 @@ void List<T>::Delete(long position, T &info) {
         if(forme == 0){ 
             head = current->next;
             info = current->getInfo();
-            head->setPosition(1);
-            order(head);
+            if(current->next){
+                head->setPosition(1);
+                order(head);
+            }
             delete current;
 
         }else{ //cualquiera entre la lista.
