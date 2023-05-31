@@ -30,7 +30,8 @@ class List {
         void Delete( long, T &) ;
         void Delete();
         long Size() const;
-        void print() const;       
+        void print() const;
+        Node<T> *objInfo(Node<T> *instancia) const;     
 
     private:
         Node<T> *crear(const T &, long);
@@ -65,18 +66,16 @@ List<T>::~List(){
      * @author Leonardo Febres usando como refenrencia
      * el libre de Harvey M. Deitel Paul J. Deitel
     */
-    if(!isEmpty()){
-        cout<<"Destruyendo Nodos ... \n";
-        Node<T> *current = head; // Nodo actual
-        Node<T> *tempNode; // Nodo temporal
+    cout<<"\n        Destruyendo Nodos\n             ..........\n";
+    Node<T> *current = head; // Nodo actual
+    Node<T> *tempNode; // Nodo temporal
 
-        while(current != 0){
-            tempNode = current;
-            cout << tempNode->info<< "\n";
-            current = current->next;
-            delete tempNode;
-            _size--;
-        }
+    while(current != 0){
+        tempNode = current;
+        //cout << tempNode->info<< "\n";
+        current = current->next;
+        delete tempNode;
+        _size--;
     }
     cout << "Se destruyeron todos los nodos\n";
 }
@@ -192,7 +191,7 @@ void List<T>::insert(T info, long p){
         p = Size();
     }
     if(!isEmpty()){
-        cout <<newNode->getPosition()<<"\n";
+        //cout <<newNode->getPosition()<<"\n";
         if(p == head->getPosition()){ // si p es igual a la posicion del head entonces se coloca al principio
             newNode->next = head;
             newNode->setPosition(head->getPosition());
@@ -348,8 +347,7 @@ void List<T>::print() const{
 
     while (current != 0)
     {
-        wchar_t c = current->getInfo();
-        cout <<current->getPosition() << " - " << current->ID()<<" - "<< c << "\n";
+        cout <<current->getPosition() << " " << current->getInfo();
         current = current->next;
     }
     
@@ -361,7 +359,13 @@ Node<T> *List<T>::crear(const T &datos,long x){
 }
 
 
-
+template<class T>
+Node<T> *List<T>::objInfo(Node<T> *instancia) const{
+    /**
+     * @brief recibe un nodo para retornar su siguiente en la lista.
+    */
+    return instancia->next;
+}
 
 
 #endif
