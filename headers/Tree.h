@@ -112,4 +112,5 @@ void Tree<T>::postOrdenAux(Node_a<T> *ptr) const{
         cout << ptr->dato <<' ';
     }
 }
+
 #endif

@@ -1,0 +1,35 @@
+// Listado de Dispositivos y coordenadasEXTRA_6_F
+16
+DIS_1_A, 55.101.15.4
+DIS_2_B, 55.101.16.4
+DIS_3_C, 55.120.16.4
+DIS_4_D, 190.120.16.4
+DIS_5_E, 23.120.16.4
+DIS_6_F, 23.120.16.44
+DIS_7_G, 23.120.132.14
+DIS_8_H, 23.120.132.11
+DIS_9_I, 61.132.32.23
+DIS_10_J, 61.87.32.2
+DIS_11_K, 61.87.32.24
+DIS_12_L, 61.87.2.24
+DIS_13_M, 61.87.2.22
+DIS_14_N, 222.87.2.22
+DIS_15_O, 10.23.2.15
+DIS_16_P, 10.23.2.17
+// Relaciones entre Dispositivos
+12
+DIS_1_A, DIS_2_B, 42, 00:38, fibra óptica
+DIS_4_D, DIS_3_C, 88, 01:13, fibra óptica
+DIS_6_F, DIS_1_A, 7009.77, 09:13; 5G
+EXTRA_1_A, DIS_11_K, 7045.37, 72:23, fibra óptica
+EXTRA_2_B, EXTRA_6_F, 306, 04:36, fibra óptica
+DIS_9_I, DIS_8_H, 324.56, 04:11, fibra óptica
+DIS_2_B, DIS_3_C, 243.93, 03:48, fibra óptica
+DIS_4_D, DIS_7_G, 22.41, 00:24, fibra óptica
+DIS_1_A, EXTRA_5_E, 1024.14, 01:47, 5G
+EXTRA_3_C, DIS_1_A, 172.99, 02:31, fibra óptica
+EXTRA_4_D, DIS_13_M, 439.76, 06:38, fibra óptica
+DIS_1_A, DIS_14_N, 7507, 09:24, 5G
+DIS_1_A, DIS_3_C, 257.95, 00:50, 5G
+DIS_1_A, DIS_13_M, 509.44, 01:10, 5G
+EXTRA_3_C, EXTRA_4_D, 209.03, 02:57, fibra óptica
