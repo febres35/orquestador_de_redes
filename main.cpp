@@ -1,21 +1,35 @@
 #include <iostream>
 
-#include "headers/Queue.h"
+#include "headers/Tree.h"
+using std::cout;
+using std::cin;
+using std::fixed;
+
 
 int main(void){
-    Queue<int> p;
-
-    cout << "Procesando pila de valores integer\n";
-
-    for (int i = 0; i < 6; ++i) {
-        p.enQueue(i);
-        p.printQueue();
+    
+    Tree<int> a;
+    int valor;
+    cout << "Escriba 10 valores integer: "<<endl;
+    for (int i = 0; i< 10; i++){
+        cin>>valor;
+        a.insert(valor);
     }
-    int deQueue;
-    while(!p.isEmptyQueue()){
-        p.deQueue(deQueue);
-        cout << deQueue << " Se desapilo...\n";
-    }
+
+
+    cout << "Recorrido preOrden: \n";
+    a.preOrden();
+    cout <<endl;
+
+
+    cout << "\nRecorrido inOrden: \n";
+    a.inOrden();
+    cout <<endl;
+
+    cout << "\nRecorrido postOrden: \n";
+    a.postOrden();
+    cout <<endl;
+
 
     return 0;
 }
