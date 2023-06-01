@@ -26,20 +26,15 @@ class Dispositivo{
     public:
         Dispositivo();
         ~Dispositivo();
-        
-        int getId() const;
         char *getHn() const;
         char *getIp() const;
         bool setHn(string);
         bool setIp(string);
         int _Size() const;
-        void printDispositivo() const;
         friend std::ostream& operator<<(std::ostream& os, const Dispositivo& dt);
 
 
     private:
-
-        int id;
         char *hn;
         char *ip;
         static int cont;
@@ -52,7 +47,6 @@ Dispositivo::Dispositivo(){
      * @brief inicializa la instancia. 
     */
     cont++;
-    id = cont;
     hn = ip = 0;
 }
 Dispositivo::~Dispositivo(){
@@ -69,13 +63,6 @@ Dispositivo::~Dispositivo(){
     --cont;
 }
 
-int Dispositivo::getId() const{
-
-    /** @brief retorna el id del dispositivo. 
-     * (ID) numero autoincremetal deacuerdo a
-     * la cantidad de dispositivos creados.*/
-    return this->id;
-}
 
 char *Dispositivo::getHn() const{
     /**
@@ -152,14 +139,6 @@ int Dispositivo::_Size() const {
 }
 
 
-
-void Dispositivo::printDispositivo() const{        
-        cout << left << "ID: "<<setw(5)<< id\
-        << setw(5) << " Hostname: "<< setw(5)\
-        << hn << setw(5) << " IP: "<< setw(5)\
-        << ip << setw(5) <<right <<"\n";
-}
-
 std::ostream& operator<<(std::ostream& os, const Dispositivo& dt){
 
     /**
@@ -170,13 +149,8 @@ std::ostream& operator<<(std::ostream& os, const Dispositivo& dt){
      * @author Leonardo Febres
     */
 
-        os << left <<dt.id << setw(5)<<" "<<dt.hn<<setw(10)<<" "<<dt.ip<<endl;
-        /*
-        os << left << "ID: "<<setw(5)<< dt.id\
-        << setw(5) << " Hostname: "<< setw(5)\
-        << dt.hn << setw(5) << " IP: "<< setw(5)\
-        << dt.ip << setw(5) <<right <<" \n";
-        */
-        return os;
+    os << left <<" "<<dt.hn<<setw(10)<<" "<<dt.ip<<endl;
+    return os;
 }
+
 #endif
