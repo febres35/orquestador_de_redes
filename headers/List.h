@@ -347,7 +347,8 @@ void List<T>::print() const{
 
     while (current != 0)
     {
-        cout <<current->getPosition() << " " << current->getInfo();
+        //cout <<current->getPosition() << " " << current->getInfo();
+        cout << current->getInfo() <<" ";
         current = current->next;
     }
     

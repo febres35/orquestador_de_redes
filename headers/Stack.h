@@ -12,7 +12,7 @@ class Stack : private List<T> {
     }
 
     bool pop(T &datos){
-        Delete(1, datos);
+        this->Delete(1, datos);
         if(datos){
             return true;
         }
