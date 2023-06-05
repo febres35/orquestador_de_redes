@@ -23,7 +23,7 @@
 
 using namespace std;
 
-void mostrarLinea(const char * const, const char * const);
+void mostrarLinea(string ,string);
 
 
 
@@ -37,13 +37,10 @@ int main(void){
         exit(1);
     }
 
-    while(!f.eof()){
-
-    }
     string hostname, ip;
     cout <<left << setw(10) << " Hostname "<< setw(13) <<"IP"<<endl <<fixed << showpoint;
     while(!f.eof()){
-        f >> hostname >>ip;
+        f >> hostname>> ip;
         mostrarLinea(ip, hostname);
     }
     f.close();

@@ -9,7 +9,7 @@ class Relacion {
     public:
         friend std::ostream& operator<<(const std::ostream& os, const Relacion &dt);
         Relacion();
-        Node<Dispositivo> *getDispositivo() const;
+        Dispositivo *getDispositivo() const;
         int getPing() const;
         int getJum() const;
         std::string getConexion() const;
@@ -17,10 +17,10 @@ class Relacion {
         void setPing(int);
         void setJum(int);
         void setConex(std::string);
-        void setDispositivo(Node<Dispositivo> *);
+        void setDispositivo(Dispositivo *);
 
     private:
-        Node<Dispositivo> *ptrDispositivo;
+        Dispositivo *ptrDispositivo;
         int ping;
         int jums;
         std::string conexion;       
@@ -36,7 +36,7 @@ Relacion::Relacion(){
     conexion = "";
 }
 
-Node<Dispositivo> *Relacion::getDispositivo() const{
+Dispositivo *Relacion::getDispositivo() const{
     /**
      * @brief consultar el nodo al que apunta.
     */
@@ -65,7 +65,7 @@ std::string Relacion::getConexion() const{
     return this->conexion;
 }
 
-void Relacion::setDispositivo(Node<Dispositivo> *dt){
+void Relacion::setDispositivo(Dispositivo *dt){
     /**
      * @brief asigna el nodo con el que tiene relacion.
     */
@@ -107,7 +107,8 @@ void Relacion::setConex(std::string tipo){
 }
 
 std::ostream& operator<<(std::ostream& os, const Relacion &dt){
-    os << " Ping: " << dt.getPing() << " Saltos: " << dt.getJum() << " Tipo de conexion: "<<dt.getConexion();
+    os << "Dispositivo: "<< *(dt.getDispositivo()) <<" Ping: " << dt.getPing() << " Saltos: " << dt.getJum() << " Tipo de conexion: "<<dt.getConexion();
+    return os;
 }
 
 #endif

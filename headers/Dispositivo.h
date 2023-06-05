@@ -30,24 +30,29 @@ class Dispositivo{
         char *getIp() const;
         bool setHn(string);
         bool setIp(string);
-        int _Size() const;
+        long _Cont() const;
+        long getId() const;
         friend std::ostream& operator<<(std::ostream& os, const Dispositivo& dt);
+        bool operator==(const Dispositivo &dt);
 
 
     private:
         char *hn;
         char *ip;
-        static int cont;
+        static long cont;
+        long id;
 };
 
-int Dispositivo::cont = 0;
+long Dispositivo::cont = 0;
 
 Dispositivo::Dispositivo(){
     /**
      * @brief inicializa la instancia. 
     */
-    cont++;
+    
     hn = ip = 0;
+    cont++;
+    id = cont;
 }
 Dispositivo::~Dispositivo(){
 
@@ -60,7 +65,7 @@ Dispositivo::~Dispositivo(){
      *
     */
     //cout << "D{ ID: " <<id << " HostName: " << hn << " IP: " << ip << " }";
-    --cont;
+    //--cont; se procede a elimnar el decremento de la clase para dejarlo como key unica. 
 }
 
 
@@ -129,7 +134,7 @@ bool Dispositivo::setIp(string ip){
     }
 }
 
-int Dispositivo::_Size() const {
+long Dispositivo::_Cont() const {
     /**
      * @brief se utiliza para identificar cuantos dispositivos
      * estan creados en el programa.
@@ -138,6 +143,9 @@ int Dispositivo::_Size() const {
     return cont;
 }
 
+long Dispositivo::getId() const {
+    return id;
+}
 
 std::ostream& operator<<(std::ostream& os, const Dispositivo& dt){
 
@@ -149,8 +157,12 @@ std::ostream& operator<<(std::ostream& os, const Dispositivo& dt){
      * @author Leonardo Febres
     */
 
-    os << left <<" "<<dt.hn<<setw(10)<<" "<<dt.ip<<endl;
+    os << left <<" "<<dt.hn<<setw(10)<<" "<<dt.ip <<" ";
     return os;
+}
+
+bool Dispositivo::operator==(const Dispositivo &dt){
+    return this->hn == dt.getHn() && this->ip ==  dt.getIp();
 }
 
 #endif

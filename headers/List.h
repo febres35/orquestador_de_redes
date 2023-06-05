@@ -147,7 +147,7 @@ void List<T>::setTail(const Node<T> *tail){
 
 
 template <class T>
-Node<T> * List<T>::get(long p)
+Node<T> *List<T>::get(long p)
 {
    /**
     * @brief busca el nodo por la posicion en la lita
@@ -348,7 +348,7 @@ void List<T>::print() const{
     while (current != 0)
     {
         //cout <<current->getPosition() << " " << current->getInfo();
-        cout << current->getInfo() <<" ";
+        cout << current->getInfo() <<"\n";
         current = current->next;
     }
     
