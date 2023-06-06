@@ -25,11 +25,11 @@ class Dispositivo{
     
     public:
         Dispositivo();
-        ~Dispositivo();
+        //~Dispositivo();
         char *getHn() const;
         char *getIp() const;
-        bool setHn(string);
-        bool setIp(string);
+        bool setHn( string);
+        bool setIp( string);
         long _Cont() const;
         long getId() const;
         friend std::ostream& operator<<(std::ostream& os, const Dispositivo& dt);
@@ -54,7 +54,9 @@ Dispositivo::Dispositivo(){
     cont++;
     id = cont;
 }
-Dispositivo::~Dispositivo(){
+
+
+//Dispositivo::~Dispositivo(){
 
     /**
      * @brief muestra por pantalla,
@@ -66,7 +68,7 @@ Dispositivo::~Dispositivo(){
     */
     //cout << "D{ ID: " <<id << " HostName: " << hn << " IP: " << ip << " }";
     //--cont; se procede a elimnar el decremento de la clase para dejarlo como key unica. 
-}
+//}
 
 
 char *Dispositivo::getHn() const{
@@ -83,7 +85,7 @@ char *Dispositivo::getIp() const{
     return this->ip;
 }
 
-bool Dispositivo::setHn(std::string hn){
+bool Dispositivo::setHn( std::string hn){
 
     /**
      * @brief valida antes de insertar el

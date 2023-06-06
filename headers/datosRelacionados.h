@@ -13,6 +13,7 @@ using std::cout;
 class DatosRelacionados {
     public:
         friend std::ostream& operator<<(const std::ostream&, const DatosRelacionados &);
+
         DatosRelacionados();
         bool setDispositivo(string, string);
         Node<Relacion> *getRelacion(string, bool = true);
@@ -31,7 +32,7 @@ class DatosRelacionados {
         bool comprar(char *, char *);
         
 };
-DatosRelacionados::
+
 DatosRelacionados::DatosRelacionados(){
     
 }
@@ -91,7 +92,8 @@ Node<Relacion> *DatosRelacionados::getRAux(Node<Relacion> *current, char *temp, 
     */
     
     if(current != 0){
-        Relacion *aux = &(current->getInfo());  //
+        Relacion *aux = new Relacion();
+        *aux = current->getInfo();  //
         Dispositivo *x = aux->getDispositivo();
         if (tipo){
              if (comprar(x->getHn(), temp)){
@@ -144,7 +146,5 @@ std::ostream& operator<<(std::ostream& os, const DatosRelacionados &instancia){
     os << "Dispositivo: " << instancia.getSrcDisp();
     return os;
 }
-
-
 
 #endif

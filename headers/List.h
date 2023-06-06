@@ -25,7 +25,7 @@ class List {
         Node<T> *getTail();
         void setTail(const Node<T> *);
         Node<T> * get(long);
-        void insert(T, long = 0);
+        void insert(const T , long = 0);
         void order(Node<T> *);
         void Delete( long, T &) ;
         void Delete();
@@ -173,7 +173,7 @@ Node<T> *List<T>::get(long p)
 }
 
 template <class T>
-void List<T>::insert(T info, long p){
+void List<T>::insert(const T info , long p){
     /**
      * @brief incluir en la lista, dada una posicion.
      * de no incluir la posicion en la lista se colocara al final 
@@ -351,6 +351,7 @@ void List<T>::print() const{
         cout << current->getInfo() <<"\n";
         current = current->next;
     }
+    cout << "\nFin de impresion\n";
     
 }
 

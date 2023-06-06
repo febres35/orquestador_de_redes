@@ -1,34 +1,27 @@
 #include<iostream>
 
-//using std::cout;
-//using std::cin;
-//using std::endl;
-//using std::ios;
-//using std::cerr;
-//using std::left;
-//using std::right;
-//using std::fixed;
-//using std::showpoint;
+
 #include<stdlib.h>
 #include<fstream>
 #include<iomanip>
-//using std::setw;
-//using std::setprecision;
-#include<cstdlib> // prototipo de exit
-
-//#include <string>
-//using std::ifstream;
-
+#include<cstdlib> 
 #include "headers/List.h"
+#include "headers/datosRelacionados.h"
+
 
 using namespace std;
 
 void mostrarLinea(string ,string);
-
-
+void LeerFile(List<DatosRelacionados> &);
 
 int main(void){
+    List<DatosRelacionados> lista;
+    LeerFile(lista);
+    lista.print();
+    return 0;
+}
 
+void LeerFile(List<DatosRelacionados> &lista){
     ifstream f;
     f.open("Dispositivos.dat", ios::in);
 
@@ -37,14 +30,31 @@ int main(void){
         exit(1);
     }
 
-    string hostname, ip;
-    cout <<left << setw(10) << " Hostname "<< setw(13) <<"IP"<<endl <<fixed << showpoint;
-    while(!f.eof()){
-        f >> hostname>> ip;
-        mostrarLinea(ip, hostname);
+    int cont = 0;
+    int nDispositivo = 0 ;
+    int nRelaciones = 0;
+    
+    while (!f.eof())
+    {   
+        DatosRelacionados temp;
+        string hn, ip;
+        cont++;
+        if (cont == 2){
+            f>>nDispositivo;
+        }else if (cont <= nDispositivo+2 && cont > 2  ){
+            f >> hn >> ip;
+            bool aux = temp.setDispositivo(hn, ip);
+            cout << temp <<" ";
+            if(aux){
+                //lista.insert(temp);
+            }
+        }else{
+            string temp;
+            std::getline(f, temp);
+        }
     }
     f.close();
-    return 0;
+
 }
 
 void mostrarLinea(string ip, string hostname) {

@@ -1,4 +1,4 @@
-#include "headers/List.h"
+#include "../headers/List.h"
 
 template<class T>
 void probarList(List<T> &, const std::string &);
@@ -8,6 +8,7 @@ int main(void ){
     
     List<int> list;
     probarList(list, "integer");
+    list.print();
 
 
 
