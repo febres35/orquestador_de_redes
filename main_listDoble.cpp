@@ -9,8 +9,17 @@ using std::cin;
 int main(void ){
     
     ListDoble<int> list;
-    probarList(list, "integer");
+    
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    list.insert(4);
+    list.insert(5);
+    int temp;
+    list.removeNode(10, temp);
+    std::cout << temp << "\n";
     list.printList();
+    //probarList(list, "integer");
 
     return 0;
 }
@@ -44,19 +53,23 @@ void probarList(ListDoble<T> &list, const std::string &nombreType){
 
         case 3:
             list.removeHead(aux);
-            cout <<  valor << " se quito de la lista\n";
+            cout <<  aux << " se quito de la lista\n";
             list.printList();
             break;
-
-            
+   
         case 4:
             list.removeTail(aux);
             if (valor){
-                cout <<  valor << " se quito de la lista\n";
+                cout <<  aux << " se quito de la lista\n";
             }
             list.printList();
             break;  
 
+        case 5:
+
+            cout << "Saliendo...\n";
+            break;
+        
         default:
             cout << "Opcion no valida.\n";
             break;
