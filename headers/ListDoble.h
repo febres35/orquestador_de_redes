@@ -2,10 +2,10 @@
 #define LISTDOBLE_H
 
 #include <iostream>
-
 #include <new>
 #include"Node_a.h"
 using std::cout;
+
 /**
     Nota:
         EL Id del nodo dara dentifica el nodo,
@@ -46,12 +46,12 @@ class ListDoble
         void setTail(Node_a<T>* tail);
         void setId(long id);
         bool addNode(Node_a<T>* node, long = 0);
-        void insert(T, long = 0);
+        void insert(const T, long = 0);
         
         //delete
-        void removeHead(T);
-        void removeTail(T);
-        void removeNode(long, T );
+        void removeHead(T&);
+        void removeTail(T&);
+        void removeNode(long, T& );
         void clearList();
 
 
@@ -132,7 +132,9 @@ template<class T>
 void ListDoble<T>::printList(){
     Node_a<T>* p = head;
     while (p != NULL){
-        cout << p->_id() << " ";
+        //Se debe mantener el id del nodo. 
+        //se procede a cambiar por motivos de pruebas.
+        cout << p->dato << " ";
         p = p->leftPtr;
     }
     cout << "\n";
@@ -154,23 +156,29 @@ void ListDoble<T>::setHead(Node_a<T>* head){
     if (isEmpty()){
         this->head = head;
         this->tail = head;
+        _size++;
     }else {
+        
         this->head->leftPtr = head;
         head->rightPtr = this->head;
         this->head = head;
+        _size++;
     }
 }
 
 template <class T>
-void ListDoble<T>::setTail(Node_a<T>* tail){
+void ListDoble<T>::setTail(Node_a<T>* tail ){
     if (isEmpty()){
         this->head = tail;
         this->tail = tail;
+        
     }else{
-        this->head->rightPtr = tail;
+        this->tail->rightPtr = tail;
         tail->leftPtr = this->tail;
         this->tail = tail;
     }
+    _size++;  
+    
 }
 
 template<class T>
@@ -209,7 +217,7 @@ bool ListDoble<T>::addNode(Node_a<T>* node, long posicion){
 }
 
 template<class T>
-void ListDoble<T>::insert(T elem, long posicion){
+void ListDoble<T>::insert(const T elem, long posicion){
     Node_a<T>* node = crear(elem);
     
     if (posicion >= 0){
@@ -245,29 +253,35 @@ void ListDoble<T>::removeNode(Node_a<T>* node, T data ){
 }
 
 template<class T>
-void ListDoble<T>::removeHead(T data){
+void ListDoble<T>::removeHead(T &data){
     if (!isEmpty()){  
         Node_a<T>* temp = head;
-        head = head->rightPtr;
-        head->leftPtr = NULL;
+        this->head = this->head->rightPtr;
+        if (this->head != 0){
+            this->head->leftPtr = 0;
+        }
         data = temp->dato;
         delete(temp);
     }
 }
 
 template<class T>
-void ListDoble<T>::removeTail(T data){
+void ListDoble<T>::removeTail(T &data){
     if (!isEmpty()){
         Node_a<T>* temp = tail;
         tail = tail->leftPtr;
-        tail->rightPtr = NULL;
+        if (tail != 0){
+            tail->rightPtr = 0;
+        }
         data = temp->dato;
         delete(temp);
     }
 }
 
 template<class T>
-void ListDoble<T>::removeNode(long id, T data){
+void ListDoble<T>::removeNode(long id, T &data){
+
+    /// revisar funcion.
     Node_a<T>* temp = getNode(id);
     if (temp != NULL){
         removeNode(temp);

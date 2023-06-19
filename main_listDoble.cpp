@@ -4,6 +4,7 @@ template<class T>
 void probarList(ListDoble<T> &, const std::string &);
 void instruccione();
 using std::cin;
+#include <new>
 
 int main(void ){
     
@@ -21,7 +22,6 @@ void probarList(ListDoble<T> &list, const std::string &nombreType){
     int option;
     T valor;
     T aux;
-    long _size;
 
     do{
         cout <<"? ";
@@ -31,30 +31,30 @@ void probarList(ListDoble<T> &list, const std::string &nombreType){
         case 1:
             cout << "Escriba "<< nombreType << ": ";
             cin >> valor;
-            list.insert(valor, 1);
+            list.setHead(list.crear(valor));
             list.printList();
             break;
+
         case 2:
             cout << "Escriba "<< nombreType << ": ";
             cin >> valor;
-            _size = list.size()+1;
-            list.insert(valor, _size);
+            list.setTail(list.crear(valor));
             list.printList();
             break;
 
         case 3:
             list.removeHead(aux);
             cout <<  valor << " se quito de la lista\n";
-
-            list.print();
+            list.printList();
             break;
+
+            
         case 4:
-            _size = list.Size();
-            list.Delete(_size, aux);
+            list.removeTail(aux);
             if (valor){
                 cout <<  valor << " se quito de la lista\n";
             }
-            list.print();
+            list.printList();
             break;  
 
         default:

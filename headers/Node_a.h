@@ -11,7 +11,7 @@ class Node_a{
     
     public:
     
-        Node_a(const T &d):leftPtr(0),  rightPtr(0), dato(d), _id(0);{
+        Node_a(const T &d):leftPtr(0),  rightPtr(0), dato(d), _id(0){
 
         }
 
