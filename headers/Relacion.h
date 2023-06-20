@@ -91,8 +91,9 @@ void Relacion::setConex(std::string tipo){
      * @brief asigna el tipo de conexion
      * tranforma el todas las letras en minusculas
     */
-    if( tipo.length() > 1){
-        for (int x=0; x < tipo.length(); x++){
+    int size = tipo.length();
+    if( size >= 1){
+        for (int x = 0; x < size; x++){
             putchar(tolower(tipo[x]));   
         }
 

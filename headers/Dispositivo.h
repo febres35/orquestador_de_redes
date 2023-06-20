@@ -19,6 +19,7 @@ using std::setprecision;
 using std::string;
 using std::clog;
 using std::showpoint;
+using std::strcpy;
 
 class Dispositivo{
     
@@ -112,7 +113,7 @@ bool Dispositivo::setHn( std::string hn){
                 hn.erase(hn.length()-1);
             }
             this-> hn = new char[hn.length()+1];
-            std::strcpy(this->hn, hn.c_str());
+            strcpy(this->hn, hn.c_str());
             return true;
         }
     }
@@ -131,7 +132,7 @@ bool Dispositivo::setIp(string ip){
 
     }else{
         this->ip = new char[ip.length()+1];
-        std:strcpy(this->ip, ip.c_str());
+        strcpy(this->ip, ip.c_str());
         return true;
     }
 }

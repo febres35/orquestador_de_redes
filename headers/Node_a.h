@@ -15,6 +15,9 @@ class Node_a{
         T getDato() const{
             return dato;
         }
+        int getId() const{
+            return _id;
+        }
         
         friend class ListDoble<T>;
         friend class Tree<T>;

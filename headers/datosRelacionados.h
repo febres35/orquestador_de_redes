@@ -5,7 +5,7 @@
 
 #include "Dispositivo.h"
 #include "Relacion.h"
-#include "List.h"
+#include "ListDoble.h"
 #include <string.h>
 
 using std::cout;
@@ -16,7 +16,7 @@ class DatosRelacionados {
 
         DatosRelacionados();
         bool setDispositivo(string, string);
-        Node<Relacion> *getRelacion(string, bool = true);
+        Node_a<Relacion> *getRelacion(string, bool = true);
         bool setRelacion(Dispositivo *, int, int, string);
         Dispositivo getSrcDisp() const;
         void printtRl();
@@ -24,12 +24,12 @@ class DatosRelacionados {
     private:
         
         Dispositivo dispositivo;
-        List<Relacion> rl;
+        ListDoble<Relacion> rl;
 
 
-        Node<Relacion> *getDispositivo(string, bool = true);
-        Node<Relacion> *getRAux(Node<Relacion> *, char *, bool = true);
-        bool comprar(char *, char *);
+        Node_a<Relacion> *getDispositivo(string, bool = true);
+        Node_a<Relacion> *getRAux(Node_a<Relacion> *, char *, bool = true);
+        bool comparar(char *, char *);
         
 };
 
@@ -47,12 +47,12 @@ bool DatosRelacionados::setDispositivo(string hostName, string IP){
     return false;
 }
 
-Node<Relacion> *DatosRelacionados::getRelacion(string dato, bool tipo){
+Node_a<Relacion> *DatosRelacionados::getRelacion(string dato, bool tipo){
     /**
      * @brief Si @param tipo es true, entonces se buscara por hostname
      * sino entonces se buscara por IP, por default buscara por hostname.
     */
-    Node<Relacion> *dt = 0;
+    Node_a<Relacion> *dt = 0;
     dt = getDispositivo(dato, tipo);
     if( dt == 0){
         cout << "No existe relacion.\n";
@@ -60,7 +60,7 @@ Node<Relacion> *DatosRelacionados::getRelacion(string dato, bool tipo){
     return dt;
 }
 
-Node<Relacion> *DatosRelacionados::getDispositivo(string dato, bool tipo){
+Node_a<Relacion> *DatosRelacionados::getDispositivo(string dato, bool tipo){
     /**
      * 
      * @brief  busca con ayuda de la funcion getRAux el nodo
@@ -72,17 +72,17 @@ Node<Relacion> *DatosRelacionados::getDispositivo(string dato, bool tipo){
 
     if(!rl.isEmpty()){
         
-        Node<Relacion> *temp = rl.getHead();
+        Node_a<Relacion> *temp = rl.getHead();
         char *aux = new char[dato.length()+1];
         std::strcpy(aux, dato.c_str());
-        Node<Relacion> *d = getRAux(temp, aux, tipo);
+        Node_a<Relacion> *d = getRAux(temp, aux, tipo);
         
         return d;
     }
     return 0;
 }
 
-Node<Relacion> *DatosRelacionados::getRAux(Node<Relacion> *current, char *temp, bool tipo){
+Node_a<Relacion> *DatosRelacionados::getRAux(Node_a<Relacion> *current, char *temp, bool tipo){
     /**
      * @brief busca el dispositivo que con el mismo hostname el cual debe ser unico. 
      * @return obj dispositivo or 0
@@ -90,27 +90,29 @@ Node<Relacion> *DatosRelacionados::getRAux(Node<Relacion> *current, char *temp, 
      * que es el que se busca en la estructura. 
      * 
     */
+
+
     
     if(current != 0){
         Relacion *aux = new Relacion();
-        *aux = current->getInfo();  //
+        *aux = current->getDato();  //
         Dispositivo *x = aux->getDispositivo();
         if (tipo){
-             if (comprar(x->getHn(), temp)){
+             if (comparar(x->getHn(), temp)){
                 return current;
              }
         }else{
-            if (comprar(x->getIp(), temp)){
+            if (comparar(x->getIp(), temp)){
                 return current;
             }
         }
         
-        getRAux(rl.objInfo(current), temp);
+        getRAux(rl.getNode(current->getIdNode()), temp);
     }
     return 0;
 }
 
-bool DatosRelacionados::comprar(char *local, char *dato){
+bool DatosRelacionados::comparar(char *local, char *dato){
     /**
      * @brief strcmp compara una array de caracteres. pertenece a la lib stirng
      * el @param local es el dato de la estructura donde se esta buscando

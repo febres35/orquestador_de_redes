@@ -1,38 +1,35 @@
 #include<iostream>
-
-
 #include<stdlib.h>
 #include<fstream>
 #include<iomanip>
 #include<cstdlib> 
-#include "headers/List.h"
+#include "headers/ListDoble.h"
 #include "headers/datosRelacionados.h"
 
 
 using namespace std;
 
 void mostrarLinea(string ,string);
-void LeerFile(List<DatosRelacionados> &);
+void LeerFile(ListDoble<DatosRelacionados> &);
 
 int main(void){
-    List<DatosRelacionados> lista;
+    ListDoble<DatosRelacionados> lista;
     LeerFile(lista);
-    lista.print();
+    lista.printList();
     return 0;
 }
 
-void LeerFile(List<DatosRelacionados> &lista){
+void LeerFile(ListDoble<DatosRelacionados> &lista){
     ifstream f;
-    f.open("Dispositivos.dat", ios::in);
+    string nameFile = "Dispositivos.dat";
+    f.open(nameFile, ios::in | ios::binary);
 
-    if( f.fail() ){
+    if(f.fail() ){
         cerr <<"No se pudo abrir el archivo."<< endl;
         exit(1);
     }
-
     int cont = 0;
     int nDispositivo = 0 ;
-    int nRelaciones = 0;
     
     while (!f.eof())
     {   
@@ -46,7 +43,7 @@ void LeerFile(List<DatosRelacionados> &lista){
             bool aux = temp.setDispositivo(hn, ip);
             cout << temp <<" ";
             if(aux){
-                //lista.insert(temp);
+                lista.insert(temp);
             }
         }else{
             string temp;

@@ -46,9 +46,9 @@ class ListDoble
         void insert(const T, long = 0);
         
         //delete
-        void removeHead(T&);
-        void removeTail(T&);
-        void removeNode(long, T& );
+        bool removeHead(T&);
+        bool removeTail(T&);
+        bool removeNode(long, T& );
         void clearList();
 
 
@@ -107,12 +107,14 @@ Node_a<T>* ListDoble<T>::getNode(long id){
     if (isEmpty() ){
         return NULL;
     }else{
-        Node_a<T>* current = head;
-        while (current != NULL){
-            if (current->_id == id){
-                return current;
+        if(id > 0 && id <=_size){
+            Node_a<T>* current = head;
+            while (current != NULL){
+                if (current->_id == id){
+                    return current;
+                }
+                current = current->rightPtr;
             }
-            current = current->rightPtr;
         }
         return NULL;
     }
@@ -158,7 +160,6 @@ void ListDoble<T>::setHead(Node_a<T>* head){
             head->rightPtr = this->head;
             this->head->leftPtr = head;
             this->head = head;
-         
         }
         _size++;
         
@@ -196,6 +197,9 @@ bool ListDoble<T>::addNode(Node_a<T>* node, long posicion){
         node->rightPtr = NULL;
         this->head = node;
         this->tail = node;
+        _size++;
+        idNode++;
+        node->_id = idNode;
         return true;
     }else{ if (posicion == 0){
         /**
@@ -206,11 +210,11 @@ bool ListDoble<T>::addNode(Node_a<T>* node, long posicion){
         node->rightPtr = NULL;
         this->tail->rightPtr = node;
         this->tail = node;
+        _size++;
+        idNode++;
+        node->_id = idNode;
         return true;
     }else { 
-            if (posicion<0){
-                return false;
-            }
             Node_a<T>* current = head;
             for (int i = 0; i < posicion - 1 && current != NULL; i++){
                 current = current->rightPtr;
@@ -224,6 +228,9 @@ bool ListDoble<T>::addNode(Node_a<T>* node, long posicion){
                 }else{
                     node->rightPtr->leftPtr = node;
                 }
+                _size++;
+                idNode++;
+                node->_id = idNode;
                 return true;
             }else{
                 return false;
@@ -239,9 +246,6 @@ void ListDoble<T>::insert(const T elem, long posicion){
     if (posicion >= 0){
         bool temp = addNode(node, posicion); 
         if (temp){
-            _size++;
-            idNode++;
-            node->_id = idNode;
         }else{
             cout << "Valide la posicion de la Lista Donde desea colocar el nodo\n";
         }   
@@ -273,14 +277,14 @@ void ListDoble<T>::removeNode(Node_a<T>* node, T &data ){
     }else {
         this->tail = node->leftPtr;
     }
-
+    cout <<"Bandera " <<node->dato <<"\n";
     data = node->dato;
     this->_size--;
     delete node;
 }
 
 template<class T>
-void ListDoble<T>::removeHead(T &data){
+bool ListDoble<T>::removeHead(T &data){
     if (!isEmpty()){  
         Node_a<T>* temp = head;
         this->head = this->head->rightPtr;
@@ -292,11 +296,14 @@ void ListDoble<T>::removeHead(T &data){
         data = temp->dato;
         this->_size--;
         delete temp;
+        return true;
+    }else{
+        return false;
     }
 }
 
 template<class T>
-void ListDoble<T>::removeTail(T &data){
+bool ListDoble<T>::removeTail(T &data){
     if (!isEmpty()){
         Node_a<T>* temp = tail;
         tail = tail->leftPtr;
@@ -308,19 +315,25 @@ void ListDoble<T>::removeTail(T &data){
         data = temp->dato;
         this->_size--;
         delete temp;
+        return true;
     }
+    return false;
 }
 
 template<class T>
-void ListDoble<T>::removeNode(long id, T &data){
+bool ListDoble<T>::removeNode(long id, T &data){
 
     /// revisar funcion.
     Node_a<T>* temp = getNode(id);
     // no se decrementa el size porque
     //removeNode lo hace.
     if (temp != NULL){
-        removeNode(temp, data);
+        return removeNode(temp, data);
         //cout << data;
+
+    }else{
+        cout << "No se encontro el nodo con id: " << id << "\n";
+        return false;
     }
 }
 
