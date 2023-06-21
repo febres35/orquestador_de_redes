@@ -39,6 +39,7 @@ class ListDoble
         void printList();
         long size() const;
 
+
         //setter
         void setHead(Node_a<T>* head);
         void setTail(Node_a<T>* tail);
@@ -82,8 +83,8 @@ ListDoble<T>::ListDoble()
 template <class T>
 ListDoble<T>::~ListDoble()
 {
-    cout << "Iniciando la eliminacion de la lista Doble enlazada ID: "<< id<<"\n";
-    _id--;
+    ///cout << "Iniciando la eliminacion de la lista Doble enlazada ID: "<< id<<"\n";
+    id--;
 }
 
 //getter
@@ -128,7 +129,7 @@ void ListDoble<T>::printList(){
         while (current != NULL){
         //Se debe mantener el id del nodo. 
         //se procede a cambiar por motivos de pruebas.
-        cout << current->dato << " ";
+        cout << current->dato << "\n";
         current = current->rightPtr;
         }
         cout << "\n";
@@ -141,11 +142,11 @@ long ListDoble<T>::size() const{
 }
 
 template<class T>
-long ListDoble::getNodeId(){
-    return idNode;
+long ListDoble<T>::getId() const{
+    return id;
 }
 
-}
+
 
 //setter
 

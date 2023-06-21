@@ -41,7 +41,7 @@ bool DatosRelacionados::setDispositivo(string hostName, string IP){
     if (!hostName.empty() && !IP.empty()){
         this->dispositivo.setHn(hostName);
         this->dispositivo.setIp(IP);
-        cout << this->dispositivo<< "\n";
+        //cout << this->dispositivo<< "\n";
         return true;
     }
     return false;
