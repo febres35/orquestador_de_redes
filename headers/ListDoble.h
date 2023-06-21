@@ -120,10 +120,6 @@ Node_a<T>* ListDoble<T>::getNode(long id){
     }
 }
 
-template<class T>
-long ListDoble<T>::getId() const{
-    return id;
-}
 
 template<class T>
 void ListDoble<T>::printList(){
@@ -142,6 +138,13 @@ void ListDoble<T>::printList(){
 template <class T>
 long ListDoble<T>::size() const{
     return _size;
+}
+
+template<class T>
+long ListDoble::getNodeId(){
+    return idNode;
+}
+
 }
 
 //setter

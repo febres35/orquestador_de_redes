@@ -74,7 +74,7 @@ Node_a<Relacion> *DatosRelacionados::getDispositivo(string dato, bool tipo){
         
         Node_a<Relacion> *temp = rl.getHead();
         char *aux = new char[dato.length()+1];
-        std::strcpy(aux, dato.c_str());
+        strcpy(aux, dato.c_str());
         Node_a<Relacion> *d = getRAux(temp, aux, tipo);
         
         return d;
@@ -90,9 +90,6 @@ Node_a<Relacion> *DatosRelacionados::getRAux(Node_a<Relacion> *current, char *te
      * que es el que se busca en la estructura. 
      * 
     */
-
-
-    
     if(current != 0){
         Relacion *aux = new Relacion();
         *aux = current->getDato();  //
@@ -107,7 +104,7 @@ Node_a<Relacion> *DatosRelacionados::getRAux(Node_a<Relacion> *current, char *te
             }
         }
         
-        getRAux(rl.getNode(current->getIdNode()), temp);
+        getRAux(rl.getNode(current->getId()), temp);
     }
     return 0;
 }
@@ -141,7 +138,7 @@ Dispositivo DatosRelacionados::getSrcDisp() const{
 }
 
 void DatosRelacionados::printtRl(){
-    rl.print();
+    rl.printList();
 }
 
 std::ostream& operator<<(std::ostream& os, const DatosRelacionados &instancia){
